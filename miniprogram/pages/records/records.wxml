@@ -1,0 +1,23 @@
+<view class="container">
+  <view class="records-list">
+    <view class="record-item" wx:for="{{records}}" wx:key="{{item._id}}">
+      <view class="record-header">
+        <text class="record-type">{{item.type === 'borrow' ? '借阅' : '归还'}}</text>
+        <text class="record-status {{getStatusClass(item.status)}}">
+          {{getStatusText(item.status)}}
+        </text>
+      </view>
+      <view class="record-content">
+        <text class="book-name">{{item.bookName}}</text>
+        <text class="record-time">{{formatTime(item.createTime)}}</text>
+        <text wx:if="{{item.status === 'rejected'}}" class="reject-reason">
+          拒绝原因: {{item.rejectReason || '未说明'}}
+        </text>
+      </view>
+    </view>
+    
+    <view class="empty" wx:if="{{records.length === 0}}">
+      暂无借阅记录
+    </view>
+  </view>
+</view>

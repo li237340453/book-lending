@@ -1,0 +1,25 @@
+<view class="container">
+    <view class="userinfo">
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        <text class="user-role">{{isAdmin ? '审批人' : '借阅人'}}</text>
+    </view>
+
+    <view class="btn-group">
+        <navigator url="/pages/books/books" class="btn">
+            <image src="/images/book.png" class="btn-icon"></image>
+            <text>图书列表</text>
+        </navigator>
+
+        <navigator url="/pages/records/records" class="btn">
+            <image src="/images/borrow.png" class="btn-icon"></image>
+            <text>我的借阅</text>
+        </navigator>
+
+        <navigator url="/pages/admin/admin" class="btn" wx:if="{{isAdmin}}">
+            <image src="/images/user.png" class="btn-icon"></image>
+            <text>审批管理</text>
+            <view wx:if="{{unreadCount > 0}}" class="unread-badge">{{unreadCount}}</view>
+        </navigator>
+    </view>
+</view>

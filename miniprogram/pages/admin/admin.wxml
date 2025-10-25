@@ -1,0 +1,35 @@
+<view class="container">
+    <view class="tabs">
+        <view class="tab {{activeTab === 'pending' ? 'active' : ''}}" bindtap="switchTab" data-tab="pending">
+            待审批
+            <view wx:if="{{pendingCount > 0}}" class="badge">{{pendingCount}}</view>
+        </view>
+        <view class="tab {{activeTab === 'processed' ? 'active' : ''}}" bindtap="switchTab" data-tab="processed">
+            已处理
+        </view>
+    </view>
+
+    <view class="records-list">
+        <view class="record-item" wx:for="{{records}}" wx:key="{{item._id}}">
+            <view class="record-header">
+                <text class="record-type">{{item.type === 'borrow' ? '借阅申请' : '归还申请'}}</text>
+                <text class="record-time">{{formatTime(item.createTime)}}</text>
+            </view>
+            <view class="record-content">
+                <text>图书: {{item.bookName}}</text>
+                <text>申请人: {{item.borrowerName}}</text>
+                <text wx:if="{{item.status !== 'pending'}}" class="record-status {{item.status === 'approved' ? 'status-approved' : 'status-rejected'}}">
+                    {{item.status === 'approved' ? '已批准' : '已拒绝'}}
+                </text>
+            </view>
+            <view class="record-actions" wx:if="{{item.status === 'pending'}}">
+                <button bindtap="approveRecord" data-id="{{item._id}}" data-approved="true">批准</button>
+                <button bindtap="approveRecord" data-id="{{item._id}}" data-approved="false" class="reject-btn">拒绝</button>
+            </view>
+        </view>
+
+        <view class="empty" wx:if="{{records.length === 0}}">
+            暂无{{activeTab === 'pending' ? '待审批' : '已处理'}}的记录
+        </view>
+    </view>
+</view>
