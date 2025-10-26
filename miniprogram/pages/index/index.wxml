@@ -21,5 +21,11 @@
             <text>审批管理</text>
             <view wx:if="{{unreadCount > 0}}" class="unread-badge">{{unreadCount}}</view>
         </navigator>
+
+        <!-- 新增扫码按钮 -->
+        <view class="btn" bindtap="scanCode">
+            <image src="/images/scan.png" class="btn-icon"></image>
+            <text>扫码找书</text>
+        </view>
     </view>
 </view>

@@ -1,0 +1,72 @@
+.book-detail {
+    display: flex;
+    background-color: white;
+    border-radius: 10rpx;
+    padding: 30rpx;
+    margin: 20rpx;
+    box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.book-img {
+    width: 200rpx;
+    height: 280rpx;
+    margin-right: 30rpx;
+}
+
+.book-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.book-title {
+    font-size: 36rpx;
+    font-weight: bold;
+    margin-bottom: 20rpx;
+}
+
+.book-author {
+    font-size: 30rpx;
+    color: #666;
+    margin-bottom: 20rpx;
+}
+
+.book-status {
+    font-size: 28rpx;
+    padding: 5rpx 15rpx;
+    border-radius: 6rpx;
+    width: fit-content;
+    margin-bottom: 20rpx;
+}
+
+.status-available {
+    background-color: #eaffea;
+    color: #07c160;
+}
+
+.status-borrowed {
+    background-color: #fff2f0;
+    color: #f43f30;
+}
+
+.status-pending {
+    background-color: #fff8e6;
+    color: #ff9800;
+}
+
+.book-borrower {
+    font-size: 28rpx;
+    color: #666;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20rpx;
+    padding: 20rpx;
+}
+
+.back-btn {
+    background-color: #666;
+}
