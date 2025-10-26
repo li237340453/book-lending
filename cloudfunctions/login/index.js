@@ -10,7 +10,7 @@ exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
 
     // 这里假设管理员的openid是固定的，实际应用中可以从数据库读取
-    const adminOpenid = 'o6_bmjrPTlm6_2sgVt7hMZOPfL2M' // 替换为实际的管理员openid
+    const adminOpenid = 'oA-Gg6-Nx0uX5I-c39CRWlsmuc9s' // 替换为实际的管理员openid
 
     return {
         /***

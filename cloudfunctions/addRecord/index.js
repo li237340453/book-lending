@@ -36,7 +36,8 @@ exports.main = async (event, context) => {
         else if (event.type === 'return') {
             await db.collection('books').doc(event.bookId).update({
                 data: {
-                    status: 'available'
+                    status: 'available',
+                    currentBorrower: ''
                 }
             })
         }

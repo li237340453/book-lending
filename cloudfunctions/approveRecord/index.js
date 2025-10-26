@@ -23,7 +23,8 @@ exports.main = async (event, context) => {
             if (record.data.type === 'borrow') {
                 await db.collection('books').doc(record.data.bookId).update({
                     data: {
-                        status: 'borrowed'
+                        status: 'borrowed',
+                        currentBorrower: record.data.borrowerOpenid // 记录当前借阅人openid
                     }
                 })
             }
@@ -34,7 +35,8 @@ exports.main = async (event, context) => {
             if (record.data.type === 'borrow') {
                 await db.collection('books').doc(record.data.bookId).update({
                     data: {
-                        status: 'available'
+                        status: 'available',
+                        currentBorrower: db.command.remove() // 清除借阅人
                     }
                 })
             }

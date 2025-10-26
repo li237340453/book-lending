@@ -1,1 +1,72 @@
-/* pages/records/records.wxss */
+.records-list {
+    padding: 15rpx;
+  }
+  
+  .record-item {
+    background-color: white;
+    border-radius: 10rpx;
+    padding: 20rpx;
+    margin-bottom: 15rpx;
+    box-shadow: 0 2rpx 5rpx rgba(0, 0, 0, 0.05);
+  }
+  
+  .record-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15rpx;
+  }
+  
+  .record-type {
+    font-size: 30rpx;
+    font-weight: bold;
+  }
+  
+  .record-status {
+    padding: 3rpx 10rpx;
+    border-radius: 4rpx;
+    font-size: 24rpx;
+  }
+  
+  .status-pending {
+    background-color: #fff8e6;
+    color: #ff9800;
+  }
+  
+  .status-approved {
+    background-color: #eaffea;
+    color: #07c160;
+  }
+  
+  .status-rejected {
+    background-color: #fff2f0;
+    color: #f43f30;
+  }
+  
+  .record-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8rpx;
+  }
+  
+  .book-name {
+    font-size: 28rpx;
+    color: #333;
+  }
+  
+  .record-time {
+    font-size: 24rpx;
+    color: #999;
+  }
+  
+  .reject-reason {
+    font-size: 26rpx;
+    color: #f43f30;
+    margin-top: 5rpx;
+  }
+  
+  .empty {
+    text-align: center;
+    padding: 100rpx 0;
+    color: #999;
+    font-size: 28rpx;
+  }
