@@ -70,3 +70,17 @@
     flex-direction: column;
     gap: 10rpx;
   }
+
+  /* 新增借阅人信息样式 */
+.book-borrower {
+  font-size: 26rpx;
+  color: #666;
+  margin-top: 5rpx;
+  padding-left: 2rpx;
+}
+
+/* 补充待审批状态样式 */
+.status-pending {
+  background-color: #fff8e6;
+  color: #ff9800;
+}

@@ -51,8 +51,8 @@ App({
     wx.cloud.callFunction({
       name: 'initUser',
       data: {
-        nickname: userInfo.nickName,
-        avatarUrl: userInfo.avatarUrl
+        nickname: userInfo.nickName, //存储用户名
+        avatarUrl: userInfo.avatarUrl //存储用户头像
       },
       success: res => {
         if (res.result.success) {
