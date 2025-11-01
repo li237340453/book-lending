@@ -25,5 +25,9 @@
         </button>
       </view>
     </view>
+    <!-- 新增：空状态提示 -->
+    <view class="empty" wx:if="{{books.length === 0}}">
+      暂无图书数据
+    </view>
   </view>
 </view>
