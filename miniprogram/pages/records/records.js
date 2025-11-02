@@ -4,13 +4,31 @@ const util = require('../../utils/util.js')
 
 Page({
     data: {
-        records: []
+        records: [],
+        myRealName: '' // 新增：存储自己的真实姓名
     },
-    onLoad() {
+    async onLoad() {
+        await app.waitLogin()
+        // 获取自己的真实姓名
+        this.getMyRealName()
         this.getMyRecords()
     },
     onShow() {
         this.getMyRecords()
+    },
+    // 新增：获取自己的真实姓名
+    getMyRealName() {
+        db.collection('users').where({
+            openid: app.globalData.openid
+        }).field({
+            realName: true
+        }).get().then(res => {
+            if (res.data.length > 0) {
+                this.setData({
+                    myRealName: res.data[0].realName
+                })
+            }
+        })
     },
     getMyRecords() {
         wx.showLoading({

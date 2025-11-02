@@ -1,0 +1,46 @@
+<view class="container">
+  <view class="profile-header">
+    <image src="{{userInfo.avatarUrl}}" class="avatar"></image>
+    <text class="nickname">{{userInfo.nickName}}</text>
+    <text class="role">{{isAdmin ? '审批人' : '借阅人'}}</text>
+  </view>
+
+  <view class="info-form">
+    <view class="form-item">
+      <text class="label">姓名</text>
+      <input 
+        placeholder="请输入真实姓名" 
+        value="{{profileInfo.realName}}"
+        bindinput="onInputChange"
+        data-field="realName"
+      />
+    </view>
+    
+    <view class="form-item">
+      <text class="label">学号/工号</text>
+      <input 
+        placeholder="请输入学号或工号" 
+        value="{{profileInfo.stuId}}"
+        bindinput="onInputChange"
+        data-field="stuId"
+      />
+    </view>
+    
+    <view class="form-item">
+      <text class="label">联系电话</text>
+      <input 
+        placeholder="请输入联系电话" 
+        value="{{profileInfo.phone}}"
+        bindinput="onInputChange"
+        data-field="phone"
+      />
+    </view>
+    
+    <button class="save-btn" bindtap="saveProfile">保存信息</button>
+  </view>
+
+  <!-- 首次登录时显示必填提示 -->
+  <view class="required-tip" wx:if="{{isFirstLogin}}">
+    * 请完善个人信息后再使用借阅功能
+  </view>
+</view>

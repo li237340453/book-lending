@@ -17,14 +17,17 @@
             </view>
             <view class="record-content">
                 <text>图书: {{item.bookName}}</text>
-                <text>申请人: {{item.borrowerName}}</text>
-                <text wx:if="{{item.status !== 'pending'}}" class="record-status {{item.status === 'approved' ? 'status-approved' : 'status-rejected'}}">
+                <!-- 显示真实姓名（从users表查询后展示） -->
+                <text>申请人: {{item.applicantRealName || item.borrowerName}}</text>
+                <text wx:if="{{item.status !== 'pending'}}"
+                    class="record-status {{item.status === 'approved' ? 'status-approved' : 'status-rejected'}}">
                     {{item.status === 'approved' ? '已批准' : '已拒绝'}}
                 </text>
             </view>
             <view class="record-actions" wx:if="{{item.status === 'pending'}}">
                 <button bindtap="approveRecord" data-id="{{item._id}}" data-approved="true">批准</button>
-                <button bindtap="approveRecord" data-id="{{item._id}}" data-approved="false" class="reject-btn">拒绝</button>
+                <button bindtap="approveRecord" data-id="{{item._id}}" data-approved="false"
+                    class="reject-btn">拒绝</button>
             </view>
         </view>
 

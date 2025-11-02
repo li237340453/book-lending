@@ -1,29 +1,30 @@
 <view class="container">
-  <view class="book-detail">
-    <image src="/images/book.png" class="book-img"></image>
-    <view class="book-info">
-      <text class="book-title">{{book.name}}</text>
-      <text class="book-author">作者: {{book.author}}</text>
-      <text class="book-status {{getStatusClass(book.status)}}">
-        {{getStatusText(book.status)}}
-      </text>
-      <text class="book-borrower" wx:if="{{book.status === 'borrowed'}}">
-        当前借阅人: {{book.currentBorrowerName || '未知'}}
-      </text>
+    <view class="book-detail">
+        <image src="/images/book.png" class="book-img"></image>
+        <view class="book-info">
+            <text class="book-title">{{book.name}}</text>
+            <text class="book-author">作者: {{book.author}}</text>
+            <text class="book-status {{getStatusClass(book.status)}}">
+                {{getStatusText(book.status)}}
+            </text>
+            <!-- 显示真实姓名 -->
+            <text class="book-borrower" wx:if="{{book.status === 'borrowed'}}">
+                当前借阅人: {{book.currentBorrowerName || '未知'}}
+            </text>
+        </view>
     </view>
-  </view>
 
-  <view class="action-buttons">
-    <button bindtap="handleBorrow" wx:if="{{book.status === 'available'}}">
-      借阅此书
-    </button>
+    <view class="action-buttons">
+        <button bindtap="handleBorrow" wx:if="{{book.status === 'available'}}">
+            借阅此书
+        </button>
 
-    <button bindtap="handleReturn" wx:if="{{book.status === 'borrowed' && book.currentBorrower === openid}}">
-      归还此书
-    </button>
+        <button bindtap="handleReturn" wx:if="{{book.status === 'borrowed' && book.currentBorrower === openid}}">
+            归还此书
+        </button>
 
-    <button bindtap="gotoBooksList" class="back-btn">
-      返回图书列表
-    </button>
-  </view>
+        <button bindtap="gotoBooksList" class="back-btn">
+            返回图书列表
+        </button>
+    </view>
 </view>

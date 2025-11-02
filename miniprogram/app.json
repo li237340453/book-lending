@@ -4,7 +4,8 @@
     "pages/books/books",
     "pages/records/records",
     "pages/admin/admin",
-    "pages/bookDetail/bookDetail"
+    "pages/bookDetail/bookDetail",
+    "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",

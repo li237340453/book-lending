@@ -27,5 +27,11 @@
             <image src="/images/scan.png" class="btn-icon"></image>
             <text>扫码找书</text>
         </view>
+
+        <!-- 新增：个人中心入口 -->
+        <navigator url="/pages/profile/profile" class="btn">
+            <image src="/images/profile.png" class="btn-icon"></image>
+            <text>个人中心</text>
+        </navigator>
     </view>
 </view>
