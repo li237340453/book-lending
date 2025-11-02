@@ -13,12 +13,36 @@ Page({
         this.watchGlobalData()
     },
 
+    // 关键修复：页面显示时重新获取未读数量
     onShow() {
-        // 刷新页面数据
         this.setData({
             userInfo: app.globalData.userInfo,
-            isAdmin: app.globalData.isAdmin,
-            unreadCount: app.globalData.unreadCount
+            isAdmin: app.globalData.isAdmin
+        })
+
+        // 如果是管理员，主动刷新未读数量
+        if (app.globalData.isAdmin) {
+            this.refreshUnreadCount()
+        } else {
+            this.setData({
+                unreadCount: 0
+            })
+        }
+    },
+
+    // 新增：主动刷新未读数量
+    refreshUnreadCount() {
+        const db = wx.cloud.database()
+        db.collection('records').where({
+            status: 'pending',
+            isRead: false
+        }).count().then(res => {
+            const newCount = res.total
+            this.setData({
+                unreadCount: newCount
+            })
+            // 同步更新全局数据
+            app.globalData.unreadCount = newCount
         })
     },
 

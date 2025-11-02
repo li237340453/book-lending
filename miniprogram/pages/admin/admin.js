@@ -148,6 +148,8 @@ Page({
                         icon: 'success'
                     })
                     this.getRecords()
+                    // 修复：审批后刷新全局未读数量
+                    app.checkUnreadNotifications()
                 } else {
                     wx.showToast({
                         title: '操作失败',
