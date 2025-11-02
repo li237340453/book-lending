@@ -25,6 +25,7 @@ Page({
     },
 
     onShow() {
+        console.log('管理员页面openid:', app.globalData.openid) // 检查控制台输出
         this.getRecords()
     },
 
@@ -116,7 +117,9 @@ Page({
 
     approveRecord(e) {
         const recordId = e.currentTarget.dataset.id
-        const approved = e.currentTarget.dataset.approved
+        const approved = e.currentTarget.dataset.approved === 'true'
+
+        console.log(approved)
 
         wx.showModal({
             title: approved ? '确认批准' : '确认拒绝',
@@ -130,6 +133,7 @@ Page({
     },
 
     processApproval(recordId, approved) {
+        console.log(approved)
         wx.showLoading({
             title: '处理中...'
         })
