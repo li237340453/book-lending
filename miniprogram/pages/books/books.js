@@ -7,7 +7,9 @@ Page({
     data: {
         books: [],
         searchKey: '',
-        openid: null
+        openid: null,
+        filteredBooks: [],
+        borrowingBookIds: [] // 记录正在发起借阅的图书ID，防止重复点击
     },
 
 
@@ -84,15 +86,46 @@ Page({
         const bookId = e.currentTarget.dataset.id
         const bookName = e.currentTarget.dataset.name
 
-        wx.showModal({
-            title: '确认借阅',
-            content: `确定要借阅《${bookName}》吗？`,
-            success: res => {
-                if (res.confirm) {
-                    this.addRecord(bookId, bookName, 'borrow')
-                }
-            }
+        // 1. 检查是否正在发起该图书的借阅（防止重复点击）
+        if (this.data.borrowingBookIds.includes(bookId)) {
+          wx.showToast({ title: '请勿重复提交申请', icon: 'none' })
+          return
+        }
+        console.log(bookId)
+
+        // 2. 先获取最新的图书状态（前端前置校验）
+        const currentBook = this.data.books.find(book => book._id === bookId)
+        if (!currentBook) {
+          wx.showToast({ title: '图书信息不存在', icon: 'none' })
+          return
+        }
+
+        // 3. 检查图书状态是否为可借阅
+        if (currentBook.status !== 'available') {
+          wx.showToast({ 
+            title: currentBook.status === 'pending' ? '已有用户发起借阅申请' : '图书已被借出', 
+            icon: 'none' 
+          })
+          return
+        }
+
+        // 4. 标记为正在借阅中，禁用按钮
+        this.setData({
+          borrowingBookIds: [...this.data.borrowingBookIds, bookId]
         })
+
+        // 5. 发起借阅申请
+        this.addRecord(bookId, bookName, 'borrow')
+
+        // wx.showModal({
+        //     title: '确认借阅',
+        //     content: `确定要借阅《${bookName}》吗？`,
+        //     success: res => {
+        //         if (res.confirm) {
+        //             this.addRecord(bookId, bookName, 'borrow')
+        //         }
+        //     }
+        // })
     },
     handleReturn(e) {
         const bookId = e.currentTarget.dataset.id
@@ -124,26 +157,34 @@ Page({
             },
             success: res => {
                 wx.hideLoading()
+
+                // 移除借阅锁
+                this.setData({
+                  borrowingBookIds: this.data.borrowingBookIds.filter(id => id !== bookId)
+                })
+
                 if (res.result.success) {
-                    wx.showToast({
-                        title: type === 'borrow' ? '借阅申请已提交，请等待审批' : '归还成功',
-                        icon: 'success'
-                    })
-                    this.getBooks()
+                  wx.showToast({
+                    title: type === 'borrow' ? '借阅申请已提交' : '归还成功',
+                    icon: 'success'
+                  })
+                  this.getBooks() // 刷新列表，更新图书状态
                 } else {
-                    wx.showToast({
-                        title: '操作失败',
-                        icon: 'none'
-                    })
+                  // 云函数返回失败（如并发冲突）
+                  wx.showToast({ 
+                    title: res.result.message || '操作失败，该图书已有借阅申请', 
+                    icon: 'none' 
+                  })
                 }
             },
             fail: err => {
                 wx.hideLoading()
-                console.error('操作失败', err)
-                wx.showToast({
-                    title: '操作失败',
-                    icon: 'none'
+                // 移除借阅锁
+                this.setData({
+                  borrowingBookIds: this.data.borrowingBookIds.filter(id => id !== bookId)
                 })
+                console.error('操作失败', err)
+                wx.showToast({ title: '网络错误，请重试', icon: 'none' })
             }
         })
     }

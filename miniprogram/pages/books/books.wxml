@@ -1,36 +1,34 @@
 <view class="container">
-    <view class="search-bar">
-        <input placeholder="搜索图书" bindinput="onSearchInput" />
+  <view class="search-bar">
+    <input placeholder="搜索图书" bindinput="onSearchInput" />
+  </view>
+  <view class="books-list">
+    <view class="book-item" wx:for="{{books}}" wx:key="{{item._id}}">
+      <image src="/images/book.png" class="book-img"></image>
+      <view class="book-info">
+        <text class="book-title">{{item.name}}</text>
+        <text class="book-author">作者: {{item.author}}</text>
+        <text class="book-status {{item.status === 'available' ? 'status-available' : (item.status === 'pending' ? 'status-pending' : 'status-borrowed')}}">
+          {{item.status === 'available' ? '可借阅' : (item.status === 'pending' ? '待审批' : '已借出')}}
+        </text>
+        <!-- 显示真实姓名 -->
+        <text class="book-borrower" wx:if="{{item.status === 'borrowed' && item.currentBorrowerName}}">
+          借阅人: {{item.currentBorrowerName}}
+        </text>
+      </view>
+      <view class="book-actions">
+        <!-- 在借阅按钮中添加禁用状态 -->
+        <button bindtap="handleBorrow" data-id="{{item._id}}" data-name="{{item.name}}" wx:if="{{item.status === 'available'}}" disabled="{{borrowingBookIds.includes(item._id)}}" class="{{borrowingBookIds.includes(item._id) ? 'btn-disabled' : ''}}">
+          {{borrowingBookIds.includes(item._id) ? '提交中...' : '借阅'}}
+        </button>
+        <button bindtap="handleReturn" data-id="{{item._id}}" data-name="{{item.name}}" wx:if="{{item.status === 'borrowed' && item.currentBorrower === openid}}">
+          归还
+        </button>
+      </view>
     </view>
-    <view class="books-list">
-        <view class="book-item" wx:for="{{books}}" wx:key="{{item._id}}">
-            <image src="/images/book.png" class="book-img"></image>
-            <view class="book-info">
-                <text class="book-title">{{item.name}}</text>
-                <text class="book-author">作者: {{item.author}}</text>
-                <text
-                    class="book-status {{item.status === 'available' ? 'status-available' : (item.status === 'pending' ? 'status-pending' : 'status-borrowed')}}">
-                    {{item.status === 'available' ? '可借阅' : (item.status === 'pending' ? '待审批' : '已借出')}}
-                </text>
-                <!-- 显示真实姓名 -->
-                <text class="book-borrower" wx:if="{{item.status === 'borrowed' && item.currentBorrowerName}}">
-                    借阅人: {{item.currentBorrowerName}}
-                </text>
-            </view>
-            <view class="book-actions">
-                <button bindtap="handleBorrow" data-id="{{item._id}}" data-name="{{item.name}}"
-                    wx:if="{{item.status === 'available'}}">
-                    借阅
-                </button>
-                <button bindtap="handleReturn" data-id="{{item._id}}" data-name="{{item.name}}"
-                    wx:if="{{item.status === 'borrowed' && item.currentBorrower === openid}}">
-                    归还
-                </button>
-            </view>
-        </view>
-        <!-- 新增：空状态提示 -->
-        <view class="empty" wx:if="{{books.length === 0}}">
-            暂无图书数据
-        </view>
+    <!-- 新增：空状态提示 -->
+    <view class="empty" wx:if="{{books.length === 0}}">
+      暂无图书数据
     </view>
+  </view>
 </view>
