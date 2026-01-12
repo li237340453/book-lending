@@ -17,16 +17,16 @@
     </view>
     
     <view class="form-item">
-      <text class="label">学号/工号</text>
+      <text class="label">工号</text>
       <input 
-        placeholder="请输入学号或工号" 
+        placeholder="请输入工号" 
         value="{{profileInfo.stuId}}"
         bindinput="onInputChange"
         data-field="stuId"
       />
     </view>
     
-    <view class="form-item">
+    <!-- <view class="form-item">
       <text class="label">联系电话</text>
       <input 
         placeholder="请输入联系电话" 
@@ -34,7 +34,7 @@
         bindinput="onInputChange"
         data-field="phone"
       />
-    </view>
+    </view> -->
     
     <button class="save-btn" bindtap="saveProfile">保存信息</button>
   </view>
