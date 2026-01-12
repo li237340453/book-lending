@@ -1,9 +1,15 @@
 <view class="container">
+  <!-- 搜索栏 -->
   <view class="search-bar">
-    <input placeholder="搜索图书" bindinput="onSearchInput" />
+    <input 
+      placeholder="搜索图书名称/作者" 
+      value="{{searchKey}}"
+      bindinput="onSearchInput"
+      type="text"
+    />
   </view>
   <view class="books-list">
-    <view class="book-item" wx:for="{{books}}" wx:key="{{item._id}}">
+    <view class="book-item" wx:for="{{filteredBooks}}" wx:key="{{item._id}}">
       <image src="/images/book.png" class="book-img"></image>
       <view class="book-info">
         <text class="book-title">{{item.name}}</text>
@@ -26,8 +32,11 @@
         </button>
       </view>
     </view>
-    <!-- 新增：空状态提示 -->
-    <view class="empty" wx:if="{{books.length === 0}}">
+    <!-- 空状态提示 -->
+    <view class="empty-tip" wx:if="{{filteredBooks.length === 0 && searchKey}}">
+      未找到“{{searchKey}}”相关的图书
+    </view>
+    <view class="empty-tip" wx:if="{{filteredBooks.length === 0 && !searchKey && books.length === 0}}">
       暂无图书数据
     </view>
   </view>

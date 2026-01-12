@@ -8,13 +8,12 @@ Page({
         books: [],
         searchKey: '',
         openid: null,
-        filteredBooks: [],
+        filteredBooks: [], // 搜索过滤后的图书
         borrowingBookIds: [] // 记录正在发起借阅的图书ID，防止重复点击
     },
 
 
-    /**  这一段异步代码需要保留，之后视情况更新
-     * async onLoad() {
+    async onLoad() {
       // 调用waitLogin等待openid
       await app.waitLogin()
       this.setData({
@@ -22,7 +21,7 @@ Page({
       })
       this.getBooks()
     },
-     */
+     
     onLoad() {
         this.setData({
             openid: app.globalData.openid
@@ -53,35 +52,69 @@ Page({
 
         db.collection('books').get().then(res => {
             // 停止下拉刷新动画
-            wx.stopPullDownRefresh()
+            // wx.stopPullDownRefresh()
             // 隐藏加载中提示
             wx.hideLoading()
             // 停止导航栏loading
-            wx.hideNavigationBarLoading()
+            // wx.hideNavigationBarLoading()
 
+            const books = res.data || [] // 兜底空数组
             this.setData({
-                books: res.data
+              books: books,
+              filteredBooks: books // 初始显示全部
             })
         }).catch(err => {
             // 出错时也需要停止所有加载状态
-            wx.stopPullDownRefresh()
+            // wx.stopPullDownRefresh()
             wx.hideLoading()
-            wx.hideNavigationBarLoading()
+            // wx.hideNavigationBarLoading()
 
             console.error('获取图书失败', err)
             wx.showToast({
                 title: '获取图书失败',
                 icon: 'none'
             })
+            this.setData({ books: [], filteredBooks: [] }) // 异常兜底
         })
     },
 
     onSearchInput(e) {
-        this.setData({
-            searchKey: e.detail.value
-        })
-        // 可以在这里实现搜索过滤逻辑
+      const searchKey = (e.detail.value || '').trim() // 去除首尾空格，兜底空字符串
+      this.setData({ searchKey })
+      this.filterBooks(searchKey)
     },
+
+    // 搜索过滤核心函数（完善版）
+  filterBooks(keyword) {
+    const { books } = this.data
+    
+    // 1. 关键词为空：显示全部图书
+    if (!keyword) {
+      this.setData({ filteredBooks: books })
+      return
+    }
+    
+    // 2. 无图书数据：直接返回空
+    if (!books || books.length === 0) {
+      this.setData({ filteredBooks: [] })
+      return
+    }
+    
+    // 3. 多字段模糊搜索（名称/作者，不区分大小写）
+    const lowerKeyword = keyword.toLowerCase()
+    const filtered = books.filter(book => {
+      // 兜底字段为空的情况，避免报错
+      const bookName = (book.name || '').toLowerCase()
+      const bookAuthor = (book.author || '').toLowerCase()
+      
+      // 匹配图书名称 或 作者
+      return bookName.includes(lowerKeyword) || bookAuthor.includes(lowerKeyword)
+    })
+    
+    // 4. 更新过滤结果
+    this.setData({ filteredBooks: filtered })
+  },
+
     handleBorrow(e) {
         const bookId = e.currentTarget.dataset.id
         const bookName = e.currentTarget.dataset.name
