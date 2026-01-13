@@ -22,12 +22,12 @@ Page({
       this.getBooks()
     },
      
-    onLoad() {
-        this.setData({
-            openid: app.globalData.openid
-        })
-        this.getBooks()
-    },
+    // onLoad() {
+    //     this.setData({
+    //         openid: app.globalData.openid
+    //     })
+    //     this.getBooks()
+    // },
     onShow() {
         this.getBooks()
     },
