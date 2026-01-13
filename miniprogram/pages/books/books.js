@@ -50,6 +50,33 @@ Page({
             })
         }
 
+
+        db.collection('books').get().then(res => {
+            // 停止下拉刷新动画
+            wx.stopPullDownRefresh()
+            wx.hideLoading()
+            // 停止导航栏loading
+            wx.hideNavigationBarLoading()
+            const books = res.data || []
+            this.setData({ books: books }, () => {
+              // 拉取数据后，立即重新过滤（保留搜索关键词）
+              this.filterBooks(this.data.searchKey)
+            })
+          }).catch(err => {
+            // 停止下拉刷新动画
+            wx.stopPullDownRefresh()
+            wx.hideLoading()
+            // 停止导航栏loading
+            wx.hideNavigationBarLoading()
+            console.error('获取图书失败', err)
+            wx.showToast({ title: '获取图书失败', icon: 'none' })
+            this.setData({ books: [] }, () => {
+              this.filterBooks(this.data.searchKey)
+            })
+          })
+
+        /****
+         * 
         db.collection('books').get().then(res => {
             // 停止下拉刷新动画
             // wx.stopPullDownRefresh()
@@ -76,6 +103,7 @@ Page({
             })
             this.setData({ books: [], filteredBooks: [] }) // 异常兜底
         })
+        **/
     },
 
     onSearchInput(e) {
