@@ -248,5 +248,12 @@ Page({
                 wx.showToast({ title: '网络错误，请重试', icon: 'none' })
             }
         })
+    },
+    // 跳转到图书详情页（修改路径为 inspectBook）
+    gotoBookDetail(e) {
+        const bookId = e.currentTarget.dataset.id
+        wx.navigateTo({
+        url: `/pages/inspectBook/inspectBook?id=${bookId}` // 关键修改：路径改为 inspectBook
+        })
     }
 })

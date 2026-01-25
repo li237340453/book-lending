@@ -1,0 +1,48 @@
+<view class="container">
+  <!-- 图书基础信息 -->
+  <view class="book-base">
+    <text class="book-title">{{book.name}}</text>
+    <text class="book-author">作者：{{book.author || '未知'}}</text>
+    <text class="book-status {{getStatusClass(book.status)}}">
+      {{book.status === 'available' ? '可借阅' : (book.status === 'pending' ? '待审批' : '已借出')}}
+    </text>
+  </view>
+
+  <!-- 图书详细信息 -->
+  <view class="book-detail">
+    <view class="detail-item">
+      <text class="label">书籍页数：</text>
+      <text class="value">{{book.pages || '未填写'}}</text>
+    </view>
+    <view class="detail-item">
+      <text class="label">出版时间：</text>
+      <text class="value">{{book.publishTime || '未填写'}}</text>
+    </view>
+    <view class="detail-item">
+      <text class="label">出版社：</text>
+      <text class="value">{{book.publisher || '未填写'}}</text>
+    </view>
+    <view class="detail-item intro">
+      <text class="label">图书简介：</text>
+      <text class="value">{{book.intro || '暂无简介'}}</text>
+    </view>
+  </view>
+
+  <!-- 操作按钮（和列表页逻辑一致） -->
+  <view class="action-btn" wx:if="{{openid}}">
+    <button 
+      bindtap="handleBorrow" 
+      wx:if="{{book.status === 'available'}}"
+      disabled="{{borrowing}}"
+    >
+      {{borrowing ? '提交中...' : '借阅'}}
+    </button>
+    <button 
+      bindtap="handleReturn" 
+      wx:if="{{book.status === 'borrowed' && book.currentBorrower === openid}}"
+    >
+      归还
+    </button>
+    <button bindtap="backToList" class="back-btn">返回列表</button>
+  </view>
+</view>

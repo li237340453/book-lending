@@ -9,7 +9,8 @@
     />
   </view>
   <view class="books-list">
-    <view class="book-item" wx:for="{{filteredBooks}}" wx:key="{{item._id}}">
+    <view class="book-item" wx:for="{{filteredBooks}}" wx:key="{{item._id}}" bindtap="gotoBookDetail" data-id="{{item._id}}" 
+    >
       <image src="/images/book.png" class="book-img"></image>
       <view class="book-info">
         <text class="book-title">{{item.name}}</text>
@@ -24,10 +25,10 @@
       </view>
       <view class="book-actions">
         <!-- 在借阅按钮中添加禁用状态 -->
-        <button bindtap="handleBorrow" data-id="{{item._id}}" data-name="{{item.name}}" wx:if="{{item.status === 'available'}}" disabled="{{borrowingBookIds.includes(item._id)}}" class="{{borrowingBookIds.includes(item._id) ? 'btn-disabled' : ''}}">
+        <button catchtap="handleBorrow" data-id="{{item._id}}" data-name="{{item.name}}" wx:if="{{item.status === 'available'}}" disabled="{{borrowingBookIds.includes(item._id)}}"  class="{{borrowingBookIds.includes(item._id) ? 'btn-disabled' : ''}}">
           {{borrowingBookIds.includes(item._id) ? '提交中...' : '借阅'}}
         </button>
-        <button bindtap="handleReturn" data-id="{{item._id}}" data-name="{{item.name}}" wx:if="{{item.status === 'borrowed' && item.currentBorrower === openid}}">
+        <button catchtap="handleReturn" data-id="{{item._id}}" data-name="{{item.name}}" wx:if="{{item.status === 'borrowed' && item.currentBorrower === openid}}">
           归还
         </button>
       </view>
