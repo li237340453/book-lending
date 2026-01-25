@@ -5,7 +5,8 @@
     "pages/records/records",
     "pages/admin/admin",
     "pages/bookDetail/bookDetail",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/inspectBook/inspectBook"
   ],
   "window": {
     "backgroundTextStyle": "light",
