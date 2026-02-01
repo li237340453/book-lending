@@ -16,17 +16,23 @@
             <text>我的借阅</text>
         </navigator>
 
+        <!-- 新增扫码按钮 -->
+            <view class="btn" bindtap="scanCode">
+            <image src="/images/scan.png" class="btn-icon"></image>
+            <text>扫码找书</text>
+        </view>
+
         <navigator url="/pages/admin/admin" class="btn" wx:if="{{isAdmin}}">
             <image src="/images/user.png" class="btn-icon"></image>
             <text>审批管理</text>
             <view wx:if="{{unreadCount > 0}}" class="unread-badge">{{unreadCount}}</view>
         </navigator>
 
-        <!-- 新增扫码按钮 -->
-        <view class="btn" bindtap="scanCode">
-            <image src="/images/scan.png" class="btn-icon"></image>
-            <text>扫码找书</text>
-        </view>
+        <!-- 新增：图书管理入口（仅管理员可见） -->
+        <navigator url="/pages/bookManage/bookManage" class="btn" wx:if="{{isAdmin}}">
+            <image src="/images/default-book.png" class="btn-icon"></image>
+            <text>图书管理</text>
+        </navigator>
 
         <!-- 新增：个人中心入口 -->
         <navigator url="/pages/profile/profile" class="btn">

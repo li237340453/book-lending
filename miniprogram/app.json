@@ -6,7 +6,10 @@
     "pages/admin/admin",
     "pages/bookDetail/bookDetail",
     "pages/profile/profile",
-    "pages/inspectBook/inspectBook"
+    "pages/inspectBook/inspectBook",
+    "pages/addBook/addBook",
+    "pages/deleteBook/deleteBook",
+    "pages/bookManage/bookManage"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,35 @@
+.container {
+    padding: 60rpx 40rpx;
+    background-color: #f8f8f8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .title {
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 80rpx;
+  }
+  .btn-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40rpx;
+  }
+  .manage-btn {
+    height: 100rpx;
+    line-height: 100rpx;
+    font-size: 32rpx;
+    border-radius: 10rpx;
+    border: none;
+    color: #fff;
+  }
+  .add-btn {
+    background-color: #07c160;
+  }
+  .del-btn {
+    background-color: #f43f30;
+  }

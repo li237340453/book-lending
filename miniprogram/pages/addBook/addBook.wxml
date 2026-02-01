@@ -1,0 +1,104 @@
+<view class="container">
+  <view class="form-card">
+    <view class="form-title">录入新图书</view>
+    
+    <!-- 图书封面上传（保留原有功能） -->
+    <view class="form-item">
+      <label class="form-label">图书封面</label>
+      <view class="upload-img-box">
+        <image 
+          class="preview-img" 
+          src="{{newBook.coverUrl || '/images/default-book.png'}}" 
+          mode="aspectFill"
+        ></image>
+        <button bindtap="chooseCoverImage" class="upload-btn" size="mini">
+          选择/拍摄封面
+        </button>
+      </view>
+    </view>
+
+    <!-- 原有基础表单项（名称/作者/页数等，保留） -->
+    <view class="form-item">
+      <label class="form-label">图书名称*</label>
+      <input 
+        class="form-input" 
+        placeholder="请输入图书名称" 
+        value="{{newBook.name}}"
+        bindinput="onFormInput"
+        data-field="name"
+      />
+    </view>
+    <view class="form-item">
+      <label class="form-label">作者*</label>
+      <input 
+        class="form-input" 
+        placeholder="请输入作者姓名" 
+        value="{{newBook.author}}"
+        bindinput="onFormInput"
+        data-field="author"
+      />
+    </view>
+    <view class="form-item">
+      <label class="form-label">页数</label>
+      <input 
+        class="form-input" 
+        placeholder="请输入书籍页数（数字）" 
+        value="{{newBook.pages}}"
+        bindinput="onFormInput"
+        data-field="pages"
+        type="number"
+      />
+    </view>
+    <view class="form-item">
+      <label class="form-label">出版社</label>
+      <input 
+        class="form-input" 
+        placeholder="请输入出版社名称" 
+        value="{{newBook.publisher}}"
+        bindinput="onFormInput"
+        data-field="publisher"
+      />
+    </view>
+    <view class="form-item">
+      <label class="form-label">出版时间</label>
+      <input 
+        class="form-input" 
+        placeholder="例：2020-07" 
+        value="{{newBook.publishTime}}"
+        bindinput="onFormInput"
+        data-field="publishTime"
+      />
+    </view>
+    <view class="form-item form-textarea">
+      <label class="form-label">图书简介</label>
+      <textarea 
+        class="form-textarea-input" 
+        placeholder="请输入图书简介（选填）" 
+        value="{{newBook.intro}}"
+        bindinput="onFormInput"
+        data-field="intro"
+        maxlength="500"
+      />
+    </view>
+
+    <!-- 核心修改：位置改为手动文字输入框 -->
+    <view class="form-item">
+      <label class="form-label">存放位置</label>
+      <input 
+        class="form-input" 
+        placeholder="请手动填写图书位置（如：一楼左侧书架）" 
+        value="{{newBook.location}}"
+        bindinput="onFormInput"
+        data-field="location"
+      />
+    </view>
+
+    <button 
+      class="submit-btn" 
+      bindtap="addNewBook"
+      disabled="{{submitting}}"
+    >
+      {{submitting ? '提交中...' : '录入图书'}}
+    </button>
+  </view>
+</view>

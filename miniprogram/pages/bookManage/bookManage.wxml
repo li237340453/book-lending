@@ -1,0 +1,7 @@
+<view class="container">
+  <view class="title">图书管理</view>
+  <view class="btn-group">
+    <button bindtap="gotoAddBook" class="manage-btn add-btn">录入新图书</button>
+    <button bindtap="gotoDeleteBook" class="manage-btn del-btn">删除已录入图书</button>
+  </view>
+</view>

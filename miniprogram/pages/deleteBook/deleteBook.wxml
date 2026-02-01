@@ -1,0 +1,58 @@
+<view class="container">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="header-title">删除图书</text>
+    <text class="header-desc">请谨慎选择要删除的图书</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && books.length === 0}}">
+    <text class="empty-icon">📚</text>
+    <text class="empty-text">暂无图书可删除</text>
+  </view>
+
+  <!-- 图书列表 -->
+  <view class="book-list">
+    <view class="book-item" wx:for="{{books}}" wx:key="_id" wx:if="{{!loading}}">
+      <!-- 图书封面 -->
+      <view class="book-cover-container">
+        <image
+          class="book-cover"
+          src="{{item.coverUrl || '/images/default-book.png'}}"
+          mode="aspectFill"
+        ></image>
+      </view>
+
+      <!-- 图书信息 -->
+      <view class="book-info">
+        <view class="book-name-row">
+          <text class="book-name">{{item.name}}</text>
+          <view class="book-status {{item.status === 'available' ? 'avail' : (item.status === 'pending' ? 'pend' : 'borrow')}}">
+            {{item.status === 'available' ? '可借阅' : (item.status === 'pending' ? '待审批' : '已借出')}}
+          </view>
+        </view>
+        <text class="book-author">作者：{{item.author || '未知'}}</text>
+        <text class="book-location" wx:if="{{item.location}}">📍 位置：{{item.location}}</text>
+      </view>
+
+      <!-- 删除按钮 -->
+      <view class="delete-btn-wrapper">
+        <button
+          class="delete-btn"
+          bindtap="deleteBook"
+          data-id="{{item._id}}"
+          disabled="{{deletingBookIds.includes(item._id)}}"
+        >
+          <text wx:if="{{!deletingBookIds.includes(item._id)}}">🗑️ 删除</text>
+          <text wx:else>⏳ 删除中</text>
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <text class="loading-spinner"></text>
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>

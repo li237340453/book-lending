@@ -1,0 +1,57 @@
+.container {
+    padding: 20rpx;
+    background-color: #f8f8f8;
+    min-height: 100vh;
+  }
+  .form-card {
+    background: #fff;
+    border-radius: 10rpx;
+    padding: 30rpx;
+  }
+  .form-title { font-size: 32rpx; font-weight: bold; color: #333; margin-bottom: 25rpx; }
+  .form-item { display: flex; flex-direction: column; margin-bottom: 20rpx; }
+  .form-label { font-size: 28rpx; color: #666; margin-bottom: 8rpx; }
+  .form-input { height: 70rpx; border: 1px solid #eee; border-radius: 8rpx; padding: 0 15rpx; font-size: 28rpx; }
+  .form-textarea { margin-bottom: 30rpx; }
+  .form-textarea-input { min-height: 120rpx; border: 1px solid #eee; border-radius: 8rpx; padding: 15rpx; font-size: 28rpx; line-height: 1.6; }
+  .submit-btn { height: 80rpx; line-height: 80rpx; background: #07c160; color: #fff; border: none; border-radius: 8rpx; font-size: 30rpx; }
+  
+  /* 新增：封面上传样式 */
+  .upload-img-box {
+    display: flex;
+    align-items: center;
+    gap: 20rpx;
+  }
+  .preview-img {
+    width: 120rpx;
+    height: 160rpx;
+    border: 1px solid #eee;
+    border-radius: 8rpx;
+  }
+  .upload-btn {
+    background-color: #1989fa;
+    color: #fff;
+    border: none;
+    border-radius: 8rpx;
+  }
+  
+  /* 新增：位置样式 */
+  .location-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10rpx 15rpx;
+    border: 1px solid #eee;
+    border-radius: 8rpx;
+  }
+  .location-text {
+    font-size: 26rpx;
+    color: #333;
+    flex: 1;
+  }
+  .location-btn {
+    background-color: #1989fa;
+    color: #fff;
+    border: none;
+    border-radius: 8rpx;
+  }
