@@ -9,9 +9,9 @@
     />
   </view>
   <view class="books-list">
-    <view class="book-item" wx:for="{{filteredBooks}}" wx:key="{{item._id}}" bindtap="gotoBookDetail" data-id="{{item._id}}" 
+    <view class="book-item" wx:for="{{filteredBooks}}" wx:key="{{item._id}}" bindtap="gotoBookDetail" data-id="{{item._id}}"
     >
-      <image src="/images/book.png" class="book-img"></image>
+      <image src="{{item.coverUrl || '/images/default-book.png'}}" class="book-img" mode="aspectFill"></image>
       <view class="book-info">
         <text class="book-title">{{item.name}}</text>
         <text class="book-author">作者: {{item.author}}</text>
