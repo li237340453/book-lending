@@ -27,9 +27,9 @@
     </view>
     
     <view class="form-item">
-      <text class="label">联系电话</text>
+      <text class="label">内部号码</text>
       <input 
-        placeholder="请输入联系电话" 
+        placeholder="请输入内部号码" 
         value="{{profileInfo.phone}}"
         bindinput="onInputChange"
         data-field="phone"
